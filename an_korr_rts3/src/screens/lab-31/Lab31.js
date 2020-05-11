@@ -6,7 +6,7 @@ import Btn from '../../components/btn/Btn';
 import Input from '../../components/input/Input';
 import MModal from '../../components/modal/MModal';
 import factorizationFermats from '../../utils/fermats/factorization';
-
+import Toast from 'react-native-simple-toast';
 import {factorizeValid} from '../../utils/validation';
 
 const Lab31 = ({navigator}) => {
@@ -24,6 +24,7 @@ const Lab31 = ({navigator}) => {
       errStr === ''
         ? setFactorized(`${inputValue} = ${res.x} * ${res.y}`)
         : setFactorized(errStr);
+      Toast.show(res.time);
       setShowModal(true);
     } else setErrors(errors);
   };
