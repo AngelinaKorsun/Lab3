@@ -17,6 +17,7 @@ const Lab33 = ({navigator}) => {
     c: '',
     d: '',
     y: '',
+    mutation: '',
   });
 
   const inputCall = (value, type) =>
@@ -26,6 +27,7 @@ const Lab33 = ({navigator}) => {
       c: () => setCoeffs({...coeffs, c: value}),
       d: () => setCoeffs({...coeffs, d: value}),
       y: () => setCoeffs({...coeffs, y: value}),
+      mutation: () => setCoeffs({...coeffs, mutation: value}),
     }[type]());
 
   const [result, setResult] = useState('');
@@ -91,7 +93,15 @@ const Lab33 = ({navigator}) => {
             placeholder="Введіть d"
           />
         </Row>
-
+        <Row>
+          <Input
+            minWidth={120}
+            error={errors.mutation}
+            value={coeffs.mutation}
+            onChangeText={text => onChange(text, 'mutation')}
+            placeholder="Введіть множник мутації"
+          />
+        </Row>
         <Btn
           backgroundColor="#55b2d4"
           onPress={onPress}
