@@ -46,10 +46,10 @@ const makeChromosome = ({GENES_COUNT, GENE_MIN, GENE_MAX}) => {
         const closeness = Math.abs(y - (x1 * a + x2 * b + x3 * c + x4 * d));
         return closeness === 0 ? -1 : closeness;
       },
-      mutateWithGivenLikelihood: () => {
+      mutateWithGivenLikelihood: value => {
         const result = cloneChromosome({fitness, likelihood, genes});
         for (let i = 0; i < GENES_COUNT; ++i) {
-          const randomPercent = getRandomFloat(0, 100);
+          const randomPercent = i === 0 ? value * 100 : getRandomFloat(0, 100);
           randomPercent < MUTATION_LIKELIHOOD &&
             (result.getGenes()[i] = getRandomInt(GENE_MIN, GENE_MAX));
         }

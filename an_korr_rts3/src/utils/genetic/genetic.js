@@ -80,19 +80,20 @@ const getPairsForCrossover = () => {
   return [pairs];
 };
 
-const getNextGeneration = pairs => {
+const getNextGeneration = (pairs, value) => {
   const nextGeneration = new Array(POPULATION_COUNT);
   for (let i = 0; i < POPULATION_COUNT; ++i) {
     const firstParent = population[pairs[i][0]];
     const secondParent = population[pairs[i][1]];
     const result = firstParent.singleCrossover(secondParent);
-    nextGeneration[i] = result.mutateWithGivenLikelihood();
+    nextGeneration[i] = result.mutateWithGivenLikelihood(value);
   }
   return nextGeneration;
 };
 
 export const calcGenetic = coeffs => {
   setGeneMax(coeffs.y);
+  const value = coeffs.mutation;
   createInitialPopulation();
   for (let iters = 0; iters < MAX_ITERATIONS; iters++) {
     const ind = fillChromosomesWithFitnesses(coeffs);
@@ -103,7 +104,7 @@ export const calcGenetic = coeffs => {
 
     fillChromosomeWithLikelihoods();
     const [pairs] = getPairsForCrossover();
-    const nextGeneration = getNextGeneration(pairs);
+    const nextGeneration = getNextGeneration(pairs, value);
     setPopulation(nextGeneration);
   }
   return ['', 'Рішення не знайдено. Оберіть інші Коефіцієнти'];
