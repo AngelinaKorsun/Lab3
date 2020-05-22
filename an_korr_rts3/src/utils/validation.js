@@ -10,6 +10,9 @@ const isEmpty = value =>
 const isNatural = n => n !== '' && n >= 0 && Math.floor(n) === +n;
 const isNumeric = value => /^[-+]?(\d+|\d+\.\d*|\d*\.\d+)$/.test(value);
 
+const isRange = (value, min = 0, max = 1) =>
+  isNumeric(value) && Number(value) >= min && Number(value) <= max;
+
 const isPrime = num => {
   for (let i = 2; i < num; i++) if (num % i === 0) return false;
   return num > 1;
@@ -21,6 +24,7 @@ const NATURAL_REQUIRED = 'Число має бути N';
 const REQUIRED_FIELD = "Це поле обов'язкове";
 const PRIME_NUMBER = 'Число не повинно бути простим';
 const EVEN_NUMBER = 'Число має бути не парним';
+const RANGE_REQUIRED = 'Число має бути в межах 0..1';
 
 export const factorizeValid = (num, errors = {}) => {
   isPrime(num) && (errors.factorization = PRIME_NUMBER);
@@ -47,5 +51,6 @@ export const geneticValid = (data, errors = {}) => {
   !isNumeric(data.c) && (errors.c = NUMERIC_REQUIRED);
   !isNumeric(data.d) && (errors.d = NUMERIC_REQUIRED);
   !isNumeric(data.y) && (errors.y = NUMERIC_REQUIRED);
+  !isRange(data.mutation) && (errors.mutation = RANGE_REQUIRED);
   return {isValid: isEmpty(errors), errors};
 };
