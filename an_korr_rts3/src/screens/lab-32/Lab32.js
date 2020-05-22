@@ -8,6 +8,7 @@ import MModal from '../../components/modal/MModal';
 import PickerSelect from '../../components/picker/PickerSelect';
 import {perceptronValid} from '../../utils/validation';
 import calcPerceptron from '../../utils/perceptron/perceptron';
+import Toast from 'react-native-simple-toast';
 import {options} from './papyrus';
 
 const Lab32 = ({navigator}) => {
@@ -48,8 +49,8 @@ const Lab32 = ({navigator}) => {
     if (isValid) {
       setErrors({});
       const [w, errStr] = calcPerceptron(data);
-
       setResult(errStr === '' ? `${w.w1},${w.w2}` : errStr);
+      w && w.time && Toast.show(w.time);
       setShowModal(true);
     } else setErrors(errors);
   };
