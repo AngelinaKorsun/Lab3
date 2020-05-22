@@ -31,7 +31,9 @@ const calcPerceptron = data => {
       return [null, 'Досягнуто максимального часу'];
     }
   }
-  return [{w1, w2}, ''];
+  const end = Date.now();
+
+  return [{w1, w2, time: `${end - begin} sec`}, ''];
 };
 
 export default calcPerceptron;
